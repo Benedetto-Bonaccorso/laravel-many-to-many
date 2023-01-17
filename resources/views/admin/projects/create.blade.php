@@ -36,7 +36,6 @@
             <label for="deadline">deadline</label>
             <input type="text" title="author" name="deadline" id="deadline" value="{{old('deadline')}}">
 
-            <!--
             <p>Select technologies used:</p>
             @foreach ($technologies as $technology)
             <div class="form-check @error('technologies') is-invalid @enderror">
@@ -46,7 +45,7 @@
                    </label>
             </div>
             @endforeach
--->
+
             <button type="submit">send</button>
         </div>
 

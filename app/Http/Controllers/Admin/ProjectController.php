@@ -47,7 +47,7 @@ class ProjectController extends Controller
     public function store(StoreProjectRequest $request)
     {
 
-        
+        //dd($request->technologies);
 
         $newProject = new Project();
         $newProject->title = $request["title"];
@@ -55,8 +55,9 @@ class ProjectController extends Controller
         $newProject->cover_image = Storage::disk('public')->put('projects_img', $request->cover);
         $newProject->author = $request["author"];
         $newProject->deadline = $request["deadline"];
-        $newProject->technologies->attach($request["technologies"]);
         $newProject->save();
+
+        $newProject->technologies()->attach($request->technologies);
   
         return to_route("projects.index");
         
