@@ -114,6 +114,8 @@ class ProjectController extends Controller
             
             $project->update($data);
 
+            $project->technologies()->attach($request->technologies);
+
             return to_route('projects.index');
 
     }

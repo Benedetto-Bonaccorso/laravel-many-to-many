@@ -40,6 +40,16 @@
             <label for="deadline">deadline</label>
             <input type="text" name="deadline" id="deadline" value="{{$project->deadline}}">
 
+            <p>Select technologies used:</p>
+            @foreach ($technologies as $technology)
+            <div class="form-check @error('technologies') is-invalid @enderror">
+                <label class="form-check-label">
+                    <input name="technologies[]" type="checkbox" value="{{ $technology->id }}" class="form-check-input" {{ in_array($technology->id, old('technologies', [])) ? 'checked' : '' }}>
+                    {{ $technology->name }}
+                   </label>
+            </div>
+            @endforeach
+
             <button type="submit">send</button>
         </div>
 
