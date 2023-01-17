@@ -3,12 +3,14 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Models\Category;
+use App\Models\Project;
+use App\models\Technology;
 use App\Http\Requests\StoreProjectRequest;
 use App\Http\Requests\UpdateProjectRequest;
-use App\Models\Project;
-use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+
 
 class ProjectController extends Controller
 {
@@ -31,8 +33,9 @@ class ProjectController extends Controller
     public function create()
     {
         $categories = Category::all();
+        $technologies = Technology::all();
         //dd($categories);
-        return view('admin.projects.create', compact('categories'));
+        return view('admin.projects.create', compact('categories', 'technologies'));
     }
 
     /**
@@ -52,6 +55,7 @@ class ProjectController extends Controller
         $newProject->cover_image = Storage::disk('public')->put('projects_img', $request->cover);
         $newProject->author = $request["author"];
         $newProject->deadline = $request["deadline"];
+        $newProject->technologies->attach($request["technologies"]);
         $newProject->save();
   
         return to_route("projects.index");
@@ -78,9 +82,11 @@ class ProjectController extends Controller
     public function edit(Project $project)
     {
         $categories = Category::all();
+        $technologies = Technology::all();
         return view("admin.projects.edit", [
             "project" => $project,
-            "categories" => $categories
+            "categories" => $categories,
+            "technologies" => $technologies
         ]);
     }
 
@@ -102,7 +108,7 @@ class ProjectController extends Controller
                 'category_id' => $request["category_id"],
                 'cover_image' => Storage::disk('public')->put('projects_img', $request->cover),
                 'author' => $request['author'],
-                'deaadline' => $request['deadline'],
+                'deadline' => $request['deadline'],
             ];
             
             $project->update($data);
