@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\ProfileController;
 use App\http\controllers\admin\ProjectController;
+use App\http\controllers\admin\TechnologyController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -29,6 +30,7 @@ Route::get('/homePage', function () {
 
 Route::resource("admin/projects", ProjectController::class)->middleware(["auth", "verified"])->name("admin", "dashboard");
 
+Route::resource("admin/technologies", TechnologyController::class)->middleware(["auth", "verified"])->name("admin", "dashboard");
 
 /*
 Route::middleware('auth')->group(function () {

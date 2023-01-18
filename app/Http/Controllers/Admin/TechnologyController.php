@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Technology;
 use Illuminate\Http\Request;
+use Illuminate\support\Str;
 
 class TechnologyController extends Controller
 {
@@ -15,7 +16,8 @@ class TechnologyController extends Controller
      */
     public function index()
     {
-        //
+        $technologies = Technology::all();
+        return view('admin.technologies.index', compact('technologies'));
     }
 
     /**
@@ -23,9 +25,12 @@ class TechnologyController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    
     public function create()
     {
-        //
+        $technologies = Technology::all();
+        //dd($categories);
+        return view('admin.technologies.create', compact('technologies'));
     }
 
     /**
@@ -36,7 +41,12 @@ class TechnologyController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $newTechnology = new Technology();
+        $newTechnology->name = $request["name"];
+        $newTechnology->slug = Str::slug($request["name"]);
+        $newTechnology->save();
+
+        return to_route("technologies.index");
     }
 
     /**
@@ -58,7 +68,11 @@ class TechnologyController extends Controller
      */
     public function edit(Technology $technology)
     {
-        //
+        $technologies = Technology::all();
+        return view("admin.technologies.edit", [
+            "technologies" => $technologies,
+            "technology" => $technology
+        ]);
     }
 
     /**
@@ -70,7 +84,14 @@ class TechnologyController extends Controller
      */
     public function update(Request $request, Technology $technology)
     {
-        //
+        $data = [
+            'name' => $request['name'],
+            'slug' => Str::slug($request["name"]),
+        ];
+        
+        $technology->update($data);
+
+        return to_route("technologies.index");
     }
 
     /**
@@ -81,6 +102,7 @@ class TechnologyController extends Controller
      */
     public function destroy(Technology $technology)
     {
-        //
+        $technology->delete();
+        return to_route('technologies.index');
     }
 }
