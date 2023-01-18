@@ -18,7 +18,8 @@
                     
                     <hr>
 
-                    <p>Clicca qui per andare all'indice dei tuoi progetti: <a href="{{route('projects.index')}}" class="btn bg-primary text-white">Indice</a></p>
+                    <p>Clicca qui per andare all'indice dei tuoi progetti: <a href="{{route('projects.index')}}" class="btn bg-primary text-white">Indice progetti</a></p>
+                    <p>Clicca qui per andare all'indice delle tecnologie: <a href="{{route('technologies.index')}}" class="btn bg-primary text-white">Indice tecnologie</a></p>
                 </div>
             </div>
         </div>

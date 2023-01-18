@@ -50,6 +50,9 @@
             </div>
             @endforeach
 
+            <h4>non trovi la tecnologia che cerchi? <br>
+            <a href="{{route('technologies.index')}}" class="btn text-decoration-none bg-success text-white w-25 m-2">Crea Tecnologie</a></h4>
+
             <button type="submit">send</button>
         </div>
 
